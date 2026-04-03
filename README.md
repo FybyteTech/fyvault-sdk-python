@@ -1,6 +1,6 @@
 # fyvault
 
-Official Python SDK for [FyVault](https://fyvault.dev).
+Official Python SDK for [FyVault](https://fyvault.com).
 
 ## Install
 

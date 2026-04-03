@@ -12,7 +12,7 @@ class FyVault:
         self,
         api_key: str,
         org_id: str,
-        base_url: str = "https://api.fyvault.dev/api/v1",
+        base_url: str = "https://api.fyvault.com/api/v1",
     ) -> None:
         self._http = HttpClient(api_key, base_url)
         self._org_id = org_id
