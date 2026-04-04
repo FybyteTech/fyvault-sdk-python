@@ -1,9 +1,12 @@
 [project]
 name = "fyvault"
-version = "0.1.0"
+version = "0.6.0"
 description = "FyVault SDK for Python"
 requires-python = ">=3.9"
-dependencies = ["httpx>=0.27"]
+dependencies = [
+    "httpx>=0.27",
+    "typing_extensions>=4.0",
+]
 
 [build-system]
 requires = ["setuptools>=68"]

@@ -9,7 +9,7 @@ from .client import FyVault
 def inject(
     api_key: str,
     org_id: str,
-    base_url: str = "https://api.fyvault.dev/api/v1",
+    base_url: str = "https://api.fyvault.com/api/v1",
     prefix: Optional[str] = None,
 ) -> int:
     """Load all secrets for the org and inject them into os.environ.
