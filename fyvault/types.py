@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 from typing import Any, Dict, List, Optional
+
 from typing_extensions import TypedDict
 
+
+# ------------------------------------------------------------------
+# Secrets
+# ------------------------------------------------------------------
 
 class Secret(TypedDict):
     secret_id: str
@@ -24,6 +29,11 @@ class SecretVersion(TypedDict):
     created_at: str
 
 
+class SecretValue(TypedDict):
+    name: str
+    value: str
+
+
 class CreateSecretInput(TypedDict, total=False):
     name: str
     description: str
@@ -32,6 +42,23 @@ class CreateSecretInput(TypedDict, total=False):
     client_encrypted_value: str
     injection_config: Dict[str, Any]
 
+
+class SecretHandle(TypedDict):
+    handle: str
+    handle_id: str
+    expires_at: str
+    secret_name: str
+
+
+class RotateResult(TypedDict):
+    secretId: str
+    name: str
+    version: int
+
+
+# ------------------------------------------------------------------
+# Devices
+# ------------------------------------------------------------------
 
 class Device(TypedDict):
     device_id: str
@@ -49,8 +76,90 @@ class RegisterDeviceInput(TypedDict):
     fingerprint: str
 
 
+# ------------------------------------------------------------------
+# Organizations
+# ------------------------------------------------------------------
+
 class Organization(TypedDict):
     org_id: str
     name: str
     slug: str
     created_at: str
+
+
+# ------------------------------------------------------------------
+# Environments
+# ------------------------------------------------------------------
+
+class Environment(TypedDict):
+    environment_id: str
+    name: str
+    description: Optional[str]
+    is_default: bool
+    sort_order: int
+    created_at: str
+    updated_at: str
+
+
+class CreateEnvironmentInput(TypedDict, total=False):
+    name: str
+    description: str
+
+
+# ------------------------------------------------------------------
+# Access Tokens
+# ------------------------------------------------------------------
+
+ApiScope = str  # e.g. "SECRETS_READ", "SECRETS_WRITE", etc.
+
+
+class MintSessionTokenResult(TypedDict):
+    token: str
+    session_token_id: str
+    expires_at: str
+    scopes: List[str]
+
+
+# ------------------------------------------------------------------
+# Scanner
+# ------------------------------------------------------------------
+
+class ScanFinding(TypedDict):
+    pattern_name: str
+    matched_text: str
+    line_number: int
+    confidence: str  # "high" | "medium" | "low"
+
+
+# ------------------------------------------------------------------
+# Integrations
+# ------------------------------------------------------------------
+
+class SyncResult(TypedDict):
+    platform: str
+    synced: int
+    failed: int
+    errors: List[str]
+
+
+class GenerateResult(TypedDict):
+    format: str
+    filename: str
+    content: str
+    count: int
+
+
+class ImportResult(TypedDict):
+    created: int
+    skipped: int
+    overwritten: int
+
+
+# ------------------------------------------------------------------
+# Generic API response
+# ------------------------------------------------------------------
+
+class ApiResponse(TypedDict):
+    success: bool
+    data: Any
+    error: Optional[str]
