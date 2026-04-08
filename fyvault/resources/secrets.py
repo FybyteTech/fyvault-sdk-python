@@ -98,6 +98,21 @@ class SecretsResource:
         )
 
     # ------------------------------------------------------------------
+    # Sharing
+    # ------------------------------------------------------------------
+
+    def share(self, secret_id: str, ttl_seconds: int = 86400) -> Dict[str, Any]:
+        """Create a one-time, time-limited share link for a secret.
+
+        The link can be viewed exactly once and expires after the specified TTL.
+        Default TTL is 24 hours (86400 seconds).
+        """
+        return self._http.post(
+            self._path(f"/{secret_id}/share"),
+            {"ttlSeconds": ttl_seconds},
+        )
+
+    # ------------------------------------------------------------------
     # Rotating handles
     # ------------------------------------------------------------------
 
@@ -124,3 +139,35 @@ class SecretsResource:
     def revoke_handle(self, handle_id: str) -> None:
         """Revoke a handle before its natural TTL expiry."""
         self._http.delete(f"/orgs/{self._org_id}/handles/{handle_id}")
+
+    # ------------------------------------------------------------------
+    # Dependencies
+    # ------------------------------------------------------------------
+
+    def add_dependency(
+        self,
+        secret_id: str,
+        target_secret_id: str,
+        dep_type: str = "rotates_with",
+        auto_cascade: bool = False,
+    ) -> Dict[str, Any]:
+        """Add a dependency between two secrets.
+
+        When the source secret rotates, the target can optionally cascade.
+        """
+        return self._http.post(
+            self._path(f"/{secret_id}/dependencies"),
+            {
+                "targetSecretId": target_secret_id,
+                "type": dep_type,
+                "autoCascade": auto_cascade,
+            },
+        )
+
+    def list_dependencies(self, secret_id: str) -> Dict[str, Any]:
+        """List upstream and downstream dependencies for a secret."""
+        return self._http.get(self._path(f"/{secret_id}/dependencies"))
+
+    def remove_dependency(self, secret_id: str, dep_id: str) -> None:
+        """Remove a dependency by its ID."""
+        self._http.delete(self._path(f"/{secret_id}/dependencies/{dep_id}"))
