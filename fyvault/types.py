@@ -121,6 +121,26 @@ class MintSessionTokenResult(TypedDict):
 
 
 # ------------------------------------------------------------------
+# Agent Credentials
+# ------------------------------------------------------------------
+
+class AgentCredential(TypedDict):
+    credential_id: str
+    name: str
+    description: Optional[str]
+    agent_type: str
+    scopes: List[str]
+    allowed_secrets: List[str]
+    allowed_environments: List[str]
+    max_ttl_seconds: int
+    rate_limit_rpm: Optional[int]
+    expires_at: Optional[str]
+    is_active: bool
+    last_used_at: Optional[str]
+    created_at: str
+
+
+# ------------------------------------------------------------------
 # Scanner
 # ------------------------------------------------------------------
 
