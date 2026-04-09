@@ -5,6 +5,7 @@ from .access_tokens import AccessTokensResource
 from .environments import EnvironmentsResource
 from .scanner import ScannerResource
 from .integrations import IntegrationsResource
+from .providers import ProvidersResource
 
 __all__ = [
     "SecretsResource",
@@ -14,4 +15,5 @@ __all__ = [
     "EnvironmentsResource",
     "ScannerResource",
     "IntegrationsResource",
+    "ProvidersResource",
 ]

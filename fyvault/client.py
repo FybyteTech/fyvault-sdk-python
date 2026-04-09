@@ -14,6 +14,7 @@ from .resources.agent_credentials import AgentCredentialsResource
 from .resources.break_glass import BreakGlassResource
 from .resources.sandboxes import SandboxesResource
 from .resources.compliance import ComplianceResource
+from .resources.providers import ProvidersResource
 
 
 class FyVault:
@@ -48,6 +49,7 @@ class FyVault:
         self.break_glass = BreakGlassResource(self._http, org_id)
         self.sandboxes = SandboxesResource(self._http, org_id)
         self.compliance = ComplianceResource(self._http, org_id)
+        self.providers = ProvidersResource(self._http, org_id)
 
     @classmethod
     def auto(
